@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Generador de Keys</title>
+<script>
+  function generarKey(longitud) {
+    const caracteres = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    let key = '';
+    for (let i = 0; i < longitud; i++) {
+      const indice = Math.floor(Math.random() * caracteres.length);
+      key += caracteres.charAt(indice);
+    }
+    return key;
+  }
+
+  function generarYMostrarKey() {
+    const longitud = document.getElementById('longitud').value;
+    const keyGenerada = generarKey(longitud);
+    document.getElementById('resultado').innerText = keyGenerada;
+  }
+
+  function copiarKey() {
+    const key = document.getElementById('resultado').innerText;
+    const textarea = document.createElement('textarea');
+    textarea.value = key;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand('copy');
+    document.body.removeChild(textarea);
+    alert('Key copiada al portapapeles: ' + key);
+  }
+
+  function borrarKey() {
+    document.getElementById('resultado').innerText = '';
+  }
+</script>
+</head>
+<body>
+<h1>Generador de Keys</h1>
+<label for="longitud">Longitud de la Key:</label>
+<input type="number" id="longitud" min="1" max="20" value="10">
+<button onclick="generarYMostrarKey()">Generar Key</button>
+<button onclick="copiarKey()">Copiar Key</button>
+<button onclick="borrarKey()">Borrar Key</button>
+<p>Key generada: <span id="resultado"></span></p>
+</body>
+</html>
